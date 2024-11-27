@@ -1,0 +1,52 @@
+{% extends "users/base.html" %}
+
+{% load static %}
+
+{% block content %}      
+
+<style>
+.hotel-img {
+  width: 100%;
+  height: 200px; 
+  object-fit: cover;
+}
+</style>
+
+    <section class="site-hero inner-page overlay" style="background-image: url({% static 'images/searchPage.jpeg' %})" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row site-hero-inner justify-content-center align-items-center">
+            <div class="col-md-10 text-center" data-aos="fade">
+                <h2 class="text-white d-block  mb-3">Sumérgete en la calidad de extraordinarios</h2>
+                <h1 class="heading">HOTELES</h1>
+            </div>
+        </div>
+      </div>
+
+
+    <section class="section blog-post-entry bg-light">
+      <div class="container">
+        <div class="row">
+        {% for hotel in hoteles %}
+          <div class="col-lg-4 col-md-6 col-sm-6 col-12 post" data-aos="fade-up" data-aos-delay="100">
+              <form action="/rooms" method="POST">
+                {% csrf_token %}
+            <div class="media media-custom d-block mb-4 h-100">
+              <div class="media-body text-center">
+            <figure class="img-wrap">
+                <img src="{% static 'images/' %}{{ hotel.id_hotel }}.jpg" alt="{{ hotel.nombre }}" class="img-fluid hotel-img mb-3">
+              </figure>
+                <span class="meta-post text-black"> {{hotel.estado}} - {{hotel.pais}} </span><br>
+                <span class="meta-post text-black"> A {{ hotel.distance|floatformat:1 }} km </span>
+                <h2 class="mt-0 mb-3"> {{hotel.nombre}}  </h2>
+                <input type="hidden" name="hotel_id" value="{{ hotel.id_hotel }}">
+                <button type="submit" class="btn btn-primary text-white font-weight-bold">Ver habitaciones</button>
+              </div>
+            </div>
+            </form>
+          </div>    
+        {% endfor %}
+        </div>
+      </div>
+    </section>
+{% endblock %}
+

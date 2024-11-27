@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+
+{% load static %}
+
+<title>Hoteles Estrella</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="{% static 'css/bootstrap5.min.css' %}" rel="stylesheet">
+<link href="{% static 'fonts/fontawesome/css/font-awesome.min.css' %}" rel="stylesheet">
+<style type="text/css">
+    	body{margin-top:20px;
+background-color:#eee;
+}
+
+.card {
+    box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+}
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0 solid rgba(0,0,0,.125);
+    border-radius: 1rem;
+}
+    </style>
+</head>
+<body>
+<div class="container">
+<div class="row">
+<div class="col-lg-12">
+<div class="card">
+<div class="card-body">
+<div class="invoice-title">
+<h4 class="float-end font-size-15"> </h4>
+<div class="mb-4">
+<h2 class="mb-1 text-muted">Hoteles Estrella</h2>
+</div>
+</div>
+<hr class="my-4">
+<div class="row">
+<div class="col-sm-6">
+<div class="text-muted">
+<h5 class="font-size-16 mb-3">Cuenta para:</h5>
+<h5 class="font-size-15 mb-2">{{cliente.nombre_completo}}</h5>
+<p class="mb-1">{{email}}</p>
+<p class="mb-1">{{cliente.telefono}}</p>
+</div>
+</div>
+
+
+<div class="col-sm-6">
+<div class="text-muted text-sm-end">
+<div>
+<h5 class="font-size-15 mb-1">Fecha de emisión:</h5>
+<p>{{emision}}</p>
+</div>
+<div class="mt-4">
+<h5 class="font-size-15 mb-1">Fecha de vencimiento:</h5>
+<p>{{vencimiento}}</p>
+</div>
+</div>
+</div>
+
+
+
+
+
+</div>
+
+<div class="py-2">
+<div class="table-responsive">
+<table class="table align-middle table-nowrap table-centered mb-0">
+<thead>
+
+
+<tr>
+<th>Hotel</th>
+<th>Precio por noche</th>
+<th>Noches</th>
+<th class="text-end" style="width: 120px;">Subtotal</th>
+</tr>
+</thead>
+<tbody>
+
+{% for reserva in reservaciones %}
+<tr>
+<td>
+<div>
+<h5 class="text-truncate font-size-14 mb-1">{{reserva.id_hotel.nombre}}</h5>
+<p class="text-muted mb-0">{{reserva.id_hotel.calle}} {% if reserva.id_hotel.numero == None %} s/n, {% else %} {{ reserva.id_hotel.numero }}, {% endif %} {{reserva.id_hotel.colonia}}, {{reserva.id_hotel.estado}}.</p>
+</div>
+</td>
+<td>$ {{reserva.id_habitacion.costo}}</td>
+<td>{{reserva.noches}}</td>
+<td class="text-end">$ {{reserva.subtotal|floatformat:"-3"}}</td>
+</tr>
+{% endfor %}
+
+<tr>
+<td colspan="3" class="border-0 text-end"><strong>Total</strong></td>
+<td class="border-0 text-end"><h4 class="m-0 fw-semibold">${{total|floatformat:"-3"}}</h4></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<div class="d-print-none mt-4">
+<div class="float-end ms-2">
+<a href="javascript:window.print()" class="btn btn-success me-1"><i class="fa fa-print"></i></a>
+</div>
+</div>
+
+<div class="float-end">
+{% if esCliente %}
+    <a href="{% url 'users:bookings' %}" class="btn btn-primary">Regresar</a> 
+{% else %}
+    <a href="{% url 'workers:workers' %}" class="btn btn-primary">Generar otra cuenta</a> 
+{% endif %}
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends "users/base.html" %}
+
+{% load static %}
+
+{% block content %}   
+
+<section class="site-hero overlay" style="background-image: url({% static 'images/signupPage.jpg' %})" data-stellar-background-ratio="0.5">
+
+<div class="container">
+    <div class="row site-hero-inner justify-content-center align-items-center">
+        <div class="col-md-10 text-center" data-aos="fade-up">
+
+            <main class="container mt-5">
+                <div class="row justify-content-center">
+                    <section class="col-md-12">
+                        <form action="{% url 'hoteladmin:nuevohotel' %}" method="POST" class="card card-body" enctype="multipart/form-data">
+                            <h3 class="text-center">Registrar un nuevo hotel</h3>
+                            {% csrf_token %} 
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="nombre">Nombre:</label>
+                                    <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingresa nombre" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="numero">Número:</label>
+                                    <input type="text" id="numero" name="numero" class="form-control" placeholder="Ingresa el número del hotel" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="calle">Calle:</label>
+                                    <input type="text" id="calle" name="calle" class="form-control" placeholder="Ingresa la calle">
+                                </div>
+
+                                <div class="col-md-4 mt-3">
+                                    <label for="colonia">Colonia:</label>
+                                    <input type="text" id="colonia" name="colonia" class="form-control" placeholder="Ingresa la colonia" required>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="estado">Estado:</label>
+                                    <input type="text" id="estado" name="estado" class="form-control" placeholder="Ingresa el estado" required>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="pais">País:</label>
+                                    <input type="text" id="pais" name="pais" class="form-control" placeholder="Ingresa el país" required>
+                                </div>
+
+                                <div class="col-md-4 mt-3">
+                                    <label for="image">Imagen del hotel:</label>
+                                    <input type="file" name="image">
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="">Dar de alta el hotel</label>
+                                    <button type="submit" class="btn btn-primary btn-block">Registrar &nbsp; <i class="fa fa-user" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </section>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

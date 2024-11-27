@@ -1,0 +1,72 @@
+{% extends "users/base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .admin-panel {
+        background-color: white;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px; /* Increased padding for larger panel */
+        width: 400px; /* Increased width for larger panel */
+    }
+    .admin-panel h1 {
+        font-size: 32px; /* Increased font size for header */
+        margin-bottom: 30px; /* Increased margin for better spacing */
+        text-align: center;
+    }
+    .admin-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+    .admin-list li {
+        margin: 15px 0; /* Increased margin for larger spacing between items */
+    }
+    .admin-list a {
+        text-decoration: none;
+        color: #007bff;
+        font-size: 20px; /* Increased font size for links */
+        padding: 15px 20px; /* Increased padding for larger clickable area */
+        display: block;
+        background-color: #f4f4f4;
+        border-radius: 4px;
+    }
+    .admin-list a:hover {
+        background-color: #e9ecef;
+    }
+    .return-link {
+        color: #28a745;
+    }
+    .return-link:hover {
+        background-color: #d4edda;
+    }
+</style>
+
+<nav role="navigation">
+    <div class="admin-panel">
+        <h1>Panel de administración</h1>
+        <ul class="admin-list">
+            <li><a href="{% url 'hoteladmin:empleado' %}">Alta de empleados</a></li>
+            <li><a href="{% url 'hoteladmin:empleados' %}">Administrar empleados</a></li>
+            <li><a href="{% url 'hoteladmin:nuevohotel' %}">Alta de hotel</a></li>
+            <li><a href="{% url 'hoteladmin:hoteles' %}">Administrar hoteles</a></li>
+            <li><a href="{% url 'hoteladmin:nuevahabitacion' %}">Alta de habitación</a></li>
+            <li><a href="{% url 'hoteladmin:habitaciones' %}">Administrar habitaciones</a></li>
+            <li><a class="return-link" href="{% url 'users:homepage' %}">Página principal</a></li>
+        </ul>
+    </div>
+</nav>
+
+{% endblock %}

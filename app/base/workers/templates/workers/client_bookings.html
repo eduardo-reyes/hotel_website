@@ -1,0 +1,67 @@
+{% extends "users/base.html" %}
+
+{% load static %}
+
+{% block content %}      
+
+<style>
+    table {
+        text-align: center;
+    }
+</style>
+
+    <section class="site-hero inner-page overlay" style="background-image: url({% static 'images/bookingPage.png' %})" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row site-hero-inner justify-content-center align-items-center">
+            <div class="col-md-10 text-center" data-aos="fade">
+                <h2 class="text-white d-block  mb-3">Reservaciones del cliente</h2>
+            </div>
+        </div>
+      </div>
+
+<div class="container">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Hotel</th>
+                        <th>Destino</th>
+                        <th>Costo</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Cuenta de gastos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reservacion in reservaciones %}
+                    <form action="{% url 'workers:vencimiento' %}" method="POST">
+                        {% csrf_token %}
+                        <tr>
+                            <input type="hidden" name="reservacion_id" value="{{ reservacion.id_reservacion }}">
+                            <input type="hidden" name="correo" value="{{ correo }}">
+                            <td class="align-middle">{{ reservacion.id_hotel.nombre }}</td>
+                            <td class="align-middle">{{ reservacion.id_hotel.estado }}</td>
+                            <td class="align-middle">${{ reservacion.costo }}</td>
+                            <td class="align-middle">{{ reservacion.check_in }}</td>
+                            <td class="align-middle">{{ reservacion.check_out }}</td>
+                            <td class="align-middle"> 
+                                <button class="btn btn-primary text-white py-2" type="submit">
+                                    <span class="text-uppercase letter-spacing-1">Generar</span>
+                                </button>
+                            </td>
+                        </tr>
+                    </form>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6" class="text-center">El cliente aún no tiene reservaciones.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+

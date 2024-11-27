@@ -1,0 +1,140 @@
+{% extends "users/base.html" %}
+
+{% load static %}
+
+{% block content %}      
+
+<style>
+.card {
+  display: flex;
+  flex-direction: column;
+}
+
+.hotel-img {
+  width: 100%;
+  height: 200px; 
+  object-fit: cover;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.card-body > div {
+  flex-grow: 1;
+}
+
+.mt-auto {
+  margin-top: auto;
+}
+</style>
+
+    <section class="site-hero inner-page overlay" style="background-image: url({% static 'images/bookingPage.png' %})" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row site-hero-inner justify-content-center align-items-center">
+            <div class="col-md-10 text-center" data-aos="fade">
+                <h2 class="text-white d-block  mb-3">Visualiza y gestiona todas tus</h2>
+                <h1 class="heading">reservaciones</h1>
+            </div>
+        </div>
+      </div>
+
+<section class="section blog-post-entry bg-light">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-md-7">
+        <h2 class="heading" data-aos="fade-up">Reservaciones vigentes</h2>
+      </div>
+    </div>
+    <div class="row">
+      {% for reservacion in reservaciones_vigentes %}
+      {% csrf_token %}
+      <div class="col-lg-4 col-md-6 col-sm-6 col-12 post mb-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="card h-100">
+          <img src="{% static 'images/' %}{{reservacion.id_hotel.id_hotel}}.jpg" alt="{{ reservacion.id_hotel.nombre }}" class="img-fluid hotel-img">
+          <div class="card-body d-flex flex-column">
+            <div>
+              <span class="meta-post text-black">Destino: {{reservacion.id_hotel.estado}}</span>
+              <h2 class="mt-0 mb-3"> {{reservacion.id_hotel.nombre}} </h2>
+              <p class="text-black">Costo: ${{reservacion.costo}} por noche.</p>
+              <p class="text-black">Check-in: {{reservacion.check_in}}</p>
+              <p class="text-black">Check-out: {{reservacion.check_out}}</p>
+            </div>
+            <div class="mt-auto text-center">
+              <button type="submit" class="btn btn-outline-primary text-black" onclick="deleteReservation('{{ reservacion.id_reservacion }}')"> Cancelar </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p data-aos="fade-up">No tienes reservaciones en curso.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section blog-post-entry bg-light">
+  <div class="container">
+    <div class="row justify-content-center text-center mb-5">
+      <div class="col-md-7">
+        <h2 class="heading" data-aos="fade-up">Reservaciones pasadas</h2>
+      </div>
+    </div>
+    <div class="row">
+      {% for reservacion in reservaciones_anteriores %}
+      <div class="col-lg-4 col-md-6 col-sm-6 col-12 post mb-5" data-aos="fade-up" data-aos-delay="100">
+        <div class="card h-100">
+          <img src="{% static 'images/' %}{{reservacion.id_hotel.id_hotel}}.jpg" alt="{{ reservacion.id_hotel.nombre }}" class="img-fluid hotel-img">
+          <div class="card-body d-flex flex-column">
+            <div>
+              <span class="meta-post text-black">Destino: {{reservacion.id_hotel.estado}}</span>
+              <h2 class="mt-0 mb-3"> {{reservacion.id_hotel.nombre}} </h2>
+              <p class="text-black">Costo: ${{reservacion.costo}} por noche.</p>
+              <p class="text-black">Check-in: {{reservacion.check_in}}</p>
+              <p class="text-black">Check-out: {{reservacion.check_out}}</p>
+            </div>
+            <div class="mt-auto text-center">
+              <form action="/invoice" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="reservacion" value="{{ reservacion.id_reservacion }}">
+                <button class="btn btn-outline-primary text-black" type="submit"> Ver cuenta</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p data-aos="fade-up">Aún no tienes reservaciones.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+    <script>
+      function deleteReservation(reservationId) {
+          if (confirm("¿Quieres eliminar esta reservación?")) {
+              fetch(`/delete_reservation/${reservationId}/`, {
+                  method: 'DELETE',
+                  headers: {
+                      'X-CSRFToken': '{{ csrf_token }}',
+                      'Content-Type': 'application/json'
+                  },
+              })
+              .then(response => {
+                  if (response.ok) {
+                      alert("Reservación eliminada");
+                      window.location.href = "/bookings";
+                  } else {
+                      alert("Error al eliminar la reservación.");
+                  }
+              })
+              .catch(error => {
+                  alert("Error de red. Vuelva a intentar.");
+              });
+          }
+      }
+    </script>
+
+{% endblock %}

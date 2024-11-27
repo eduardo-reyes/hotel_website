@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16.2-bookworm
+    container_name: database
+    ports:
+      - "5432:5432"
+
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=sistema_hotelero
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+
+  web:
+    build: .
+    image: base_hotel_management 
+    command: python app/base/manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./app:/code/app
+    ports:
+      - "8000:8000"
+    depends_on: 
+      - db
+
+volumes:
+  postgres_data:

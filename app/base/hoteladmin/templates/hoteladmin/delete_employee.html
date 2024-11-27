@@ -1,0 +1,90 @@
+{% extends "users/base.html" %}
+
+{% load static %}
+
+{% block content %}   
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+    }
+    .container {
+        max-width: 600px;
+        background: #f9f9f9;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    h1 {
+        color: #333;
+        text-align: center;
+    }
+    .details {
+        margin-top: 20px;
+    }
+    .details p {
+        margin-bottom: 10px;
+        font-size: 16px;
+    }
+    .details strong {
+        font-weight: bold;
+    }
+    .delete-button {
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+        }
+    .delete-button button {
+        padding: 10px 20px;
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .delete-button button:hover {
+        background-color: #c82333;
+    }
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #007bff;
+    }
+    .back-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<body>
+    <div class="container">
+        <h1>Información del trabajador</h1>
+        <div class="details">
+            <p><strong>Nombre:</strong> {{ trabajador.nombre_completo }}</p>
+            <p><strong>Apellido Paterno:</strong> {{ trabajador.apellido_paterno }}</p>
+            <p><strong>Apellido Materno:</strong> {{ trabajador.apellido_materno }}</p>
+            <p><strong>Telefono:</strong> {{ trabajador.telefono }}</p>
+            <p><strong>Fecha de Nacimiento:</strong> {{ trabajador.fecha_de_nacimiento }}</p>
+            <p><strong>ID Trabajador:</strong> {{ trabajador.id_trabajador }}</p>
+            <p><strong>ID Hotel:</strong> {{ trabajador.id_hotel }}</p>
+        </div>
+        <div class="delete-button">
+            <form action="{% url 'hoteladmin:ver_empleado' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="trabajador_id" value="{{ trabajador.id_trabajador }}">
+                <button type="submit">Borrar Trabajador</button>
+            </form>
+        </div>
+        <a class="back-link" href="{% url 'hoteladmin:home' %}">Regresar al panel de administracion</a>
+    </div>
+</body>
+
+{% endblock %}

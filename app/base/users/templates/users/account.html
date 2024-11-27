@@ -1,0 +1,148 @@
+{% extends "users/base.html" %}
+
+{% load static %}
+
+{% load custom_filters %}
+
+{% block content %}  
+
+<style>
+    .data-container {
+        width: 80%;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        margin-top: 40px;
+    }
+    h1, h2 {
+        color: #333;
+    }
+    form {
+        margin-bottom: 20px;
+    }
+    form h2 {
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+    form .field {
+        margin-bottom: 15px;
+    }
+    form label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+    form input[type="text"],
+    form input[type="email"],
+    form input[type="password"],
+    form input[type="date"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    form button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    form button:hover {
+        background-color: #0056b3;
+    }
+    .info {
+        list-style-type: none;
+        padding: 0;
+    }
+    .info li {
+        background-color: #f9f9f9;
+        margin: 5px 0;
+        padding: 10px;
+        border-radius: 4px;
+    }
+</style>
+
+<section class="site-hero inner-page overlay" style="background-image: url({% static 'images/bookingPage.png' %})" data-stellar-background-ratio="0.5">
+    <div class="container">
+      <div class="row site-hero-inner justify-content-center align-items-center">
+          <div class="col-md-10 text-center" data-aos="fade">
+              <h2 class="text-white d-block  mb-3">Visualiza y Administra tu</h2>
+              <h1 class="heading">Cuenta de Usuario</h1>
+          </div>
+      </div>
+    </div>
+
+
+    <section class="section contact-section" id="next">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
+            
+            <form method="post" class="bg-white p-md-5 p-4 mb-5 border">
+                {% csrf_token %}
+            
+                <div class="row">
+                <div class="col-md-12 form-group">
+                    {{ cliente_form.nombre.label_tag }} {{ cliente_form.nombre }}
+                </div>
+                </div>
+
+                <div class="row">
+                <div class="col-md-6 form-group">
+                    {{ cliente_form.apellido_paterno.label_tag }} {{ cliente_form.apellido_paterno }}
+                </div>
+                <div class="col-md-6 form-group">
+                    {{ cliente_form.apellido_materno.label_tag }} {{ cliente_form.apellido_materno }}
+                </div>
+              </div>
+                
+              <div class="row">
+                <div class="col-md-6 form-group">
+                    {{ cliente_form.telefono.label_tag }} {{ cliente_form.telefono }}
+                </div>
+                <div class="col-md-6 form-group">
+                    {{ cliente_form.fecha_de_nacimiento.label_tag }} {{ cliente_form.fecha_de_nacimiento }}
+                </div>
+              </div>
+
+                <div class="row mb-4">
+                <div class="col-md-6 form-group text-black font-weight-bold">
+                    {{ cuenta_form.correo_electronico.label_tag }} {{ cuenta_form.correo_electronico }}
+                </div>
+                <div class="col-md-6 form-group text-black font-weight-bold">
+                    {{ cuenta_form.contrasena.label_tag }} {{ cuenta_form.contrasena }}
+                </div>
+              </div>
+
+                <div class="row">
+                <div class="col form-group">
+                    <input type="submit" value="Guardar cambios" class="btn btn-primary text-white py-2 mr-3 font-weight-bold">
+                    <span class="mr-3 font-family-serif"><em>o</em></span> 
+                    <a href="{% url 'users:delete' username=request.user.username %}" class="text-uppercase letter-spacing-1 text-danger">Eliminar cuenta</a>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="col-md-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="row">
+              <div class="col-md-10 ml-auto contact-info">
+                  <p><span class="d-block">Nombre:</span> <span class="text-black"> {{cliente.nombre}} </span></p>
+                  <p><span class="d-block">Apellido paterno:</span> <span class="text-black"> {{cliente.apellido_paterno}} </span></p>
+                  <p><span class="d-block">Apellido materno:</span> <span class="text-black"> {{cliente.apellido_materno}}</span></p>
+                  <p><span class="d-block">Teléfono:</span> <span class="text-black"> {{cliente.telefono}}</span></p>
+                  <p><span class="d-block">Fecha de nacimiento:</span> <span class="text-black"> {{cliente.fecha_de_nacimiento}}</span></p>
+                  <p><span class="d-block">Correo electrónico:</span> <span class="text-black"> {{cuenta.correo_electronico}}</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}

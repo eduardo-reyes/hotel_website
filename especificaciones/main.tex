@@ -1,0 +1,53 @@
+\documentclass[14pt]{extarticle}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,mexico]{babel}
+\usepackage[margin=2.3cm]{geometry}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{fancyhdr}
+\usepackage{lmodern}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{color}
+\usepackage{geometry}
+\usepackage{amsmath, amsfonts, amssymb, array}
+\usepackage{listings}
+
+\pagestyle{fancy}
+\fancyhf{}
+\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.5in}
+\makeatletter                       
+\def\printauthor{              
+    {\large \@author}}       
+\author{
+    Barrientos Álvarez Jorge Miguel Aaron \vspace{20pt}\\
+    Onofre Martínez Maximiliano \vspace{20pt}\\
+    Ortíz Amaya Bruno Fernando \vspace{20pt}\\
+    Reyes López Eduardo Alfonso \vspace{20pt} \\
+    Salazar Zaragoza Helen Michelle 
+    }
+\begin{document}	   
+\begin{titlepage}
+    \noindent
+    \titlefont Especificaciones \\del proyecto
+    \vfill
+    \hfill
+    \begin{minipage}{0.35\linewidth}
+        \begin{flushright}
+            \printauthor
+        \end{flushright}
+    \end{minipage}
+    %
+    \begin{minipage}{0.02\linewidth}
+        \rule{1pt}{300pt}
+    \end{minipage}
+    \end{titlepage}
+    \pagenumbering{arabic} % Numeración de páginas con números arábicos.
+    \input{descripcion}
+    \newpage
+    \input{casosdeuso}
+    \newpage
+    \input{wireframes}
+\end{document}
+

@@ -1,0 +1,67 @@
+{% extends "users/base.html" %}
+
+{% load static %}
+
+{% block content %}   
+
+<section class="site-hero overlay" style="background-image: url({% static 'images/signupPage.jpg' %})" data-stellar-background-ratio="0.5">
+
+    <div class="container">
+        <div class="row site-hero-inner justify-content-center align-items-center">
+            <div class="col-md-10 text-center" data-aos="fade-up">
+    
+                <main class="container mt-5">
+                    <div class="row justify-content-center">
+                        <section class="col-md-12">
+                            <form action="{% url 'hoteladmin:nuevahabitacion' %}" method="POST" class="card card-body">
+                                <h3 class="text-center">Registrar una nueva habitación</h3>
+                                {% csrf_token %} 
+    
+                                    <div>
+                                        <label for="hotel">Hotel:</label>
+                                        <select id="hotel" name="hotel">
+                                            {% for hotel in hoteles %}
+                                                <option value="{{ hotel.id_hotel }}">{{ hotel.nombre }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="numero">Numero:</label>
+                                        <input type="text" id="numero" name="numero" required>
+                                    </div>
+                                    <div>
+                                        <label for="disponibilidad">Está Disponible:</label>
+                                        <select id="disponibilidad" name="disponibilidad">
+                                            <option value="True">Sí</option>
+                                            <option value="False">No</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="costo">Costo:</label>
+                                        <input type="text" id="costo" name="costo" required>
+                                    </div>
+                                    <div>
+                                        <label for="tipo">Tipo:</label>
+                                        <select id="tipo" name="tipo">
+                                            <option value="Individual">Individual</option>
+                                            <option value="Doble">Doble</option>
+                                            <option value="Triple">Triple</option>
+                                            <option value="Cuadruple">Cuadruple</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="">Dar de alta la habitación</label>
+                                        <button type="submit" class="btn btn-primary btn-block">Registrar &nbsp; <i class="fa fa-user" aria-hidden="true"></i></button>
+                                    </div>
+                                </div>
+                            </form>
+    
+                        </section>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    
+    
+    {% endblock %}

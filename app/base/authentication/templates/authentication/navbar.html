@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary justify-content-center">  
+    <a class="navbar-brand main-heading" href="/"> &nbsp; Sistema Hotelero </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+  
+    </button>
+  
+  
+      <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
+  
+        
+        <ul class="navbar-nav ms-auto">
+        &nbsp;     &nbsp;     &nbsp;  
+        {% if user.is_authenticated %}
+        <li class="nav-item"><a href="/main_user_dashboard" class="nav-link" > Dashboard &nbsp; <i class="fa fa-home" aria-hidden="true"></i></a> </li>
+        <li class="nav-item"><a href="/signout" class="nav-link"> SignOut &nbsp; <i class="fa fa-sign-out" aria-hidden="true"></i></a> </li>
+        </ul>
+        {% else %}
+        <li class="nav-item"> <a href="/signup" class="nav-link" > SignUp </a> </li>
+        &nbsp;     &nbsp;     &nbsp; 
+        <li class="nav-item"> <a href="/login" class="nav-link" > LogIn </a> </li>
+        {% endif %}       
+      </div>
+  
+  
+  </nav>
+
+
+
+
+  

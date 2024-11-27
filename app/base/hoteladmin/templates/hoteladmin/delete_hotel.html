@@ -1,0 +1,66 @@
+{% extends "users/base.html" %}
+
+{% load static %}
+
+{% block content %}   
+
+<section class="site-hero overlay" style="background-image: url({% static 'images/signupPage.jpg' %})" data-stellar-background-ratio="0.5">
+
+<div class="container">
+    <div class="row site-hero-inner justify-content-center align-items-center">
+        <div class="col-md-10 text-center" data-aos="fade-up">
+
+            <main class="container mt-5">
+                <div class="row justify-content-center">
+                    <section class="col-md-12">
+                        <form action="{% url 'hoteladmin:ver_hotel' %}" method="POST" class="card card-body" enctype="multipart/form-data">
+                            <h3 class="text-center">Eliminar un hotel</h3>
+                            {% csrf_token %} 
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label for="nombre">Nombre:</label>
+                                    <p>{{ hotel.nombre }}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="numero">Número:</label>
+                                    <p>{{ hotel.numero }}</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="calle">Calle:</label>
+                                    <p>{{ hotel.calle }}</p>
+                                </div>
+
+                                <div class="col-md-4 mt-3">
+                                    <label for="colonia">Colonia:</label>
+                                    <p>{{ hotel.colonia }}</p>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="estado">Estado:</label>
+                                    <p>{{ hotel.estado }}</p>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="pais">País:</label>
+                                    <p>{{ hotel.pais }}</p>
+                                </div>
+
+                                <div class="col-md-4 mt-3">
+                                    <label for="image">ID del hotel:</label>
+                                    <p>{{ hotel.id_hotel }}</p>
+                                </div>
+                                <div class="col-md-4 mt-3">
+                                    <label for="">Dar de baja el hotel</label>
+                                        <input type="hidden" name="hotel_id" value="{{ hotel.id_hotel }}">
+                                        <button type="submit" class="btn btn-primary btn-block">Eliminar &nbsp; <i class="fa fa-user" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

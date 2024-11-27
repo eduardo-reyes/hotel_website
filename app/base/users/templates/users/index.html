@@ -1,0 +1,61 @@
+{% extends "users/base.html" %}
+
+{% load static %}
+
+{% block content %}      
+
+    <section class="site-hero overlay" style="background-image: url({% static 'images/landingPage.jpg' %})" data-stellar-background-ratio="0.5">
+    <div class="container">
+        <div class="row site-hero-inner justify-content-center align-items-center">
+          <div class="col-md-10 text-center" data-aos="fade-up">
+            <h2 class="text-white d-block  mb-3">Disfruta de una experiencia</h2>
+            <h1 class="heading">SIN IGUAL</h1>
+          </div>
+        </div>
+      </div>
+
+    </section>
+    <!-- END section -->
+
+    <section class="section bg-light pb-0"  >
+      <div class="container">
+       
+        <div class="row check-availabilty">
+          <div class="block-32" data-aos="fade-up" data-aos-offset="-200">
+              <form method="POST" action="{% url 'users:results' %}">
+                {% csrf_token %}
+    <div class="row">
+        <div class="col">
+            <label for="destino" class="font-weight-bold text-black">Destino</label>
+            <div class="field-icon-wrap">
+                <input type="text" name="destino" class="form-control text-black">
+            </div>
+        </div>              
+        <div class="col">
+            <label for="checkin_date" class="font-weight-bold text-black">Check-In</label>               
+                <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                    <input type="text" name="checkin_date" class="form-control datetimepicker-input text-black" data-target="#datetimepicker1"/>
+                <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+                </div>
+        </div>
+        <div class="col">
+            <label for="checkout_date" class="font-weight-bold text-black">Check-Out</label>
+                <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                    <input type="text" name="checkout_date" class="form-control datetimepicker-input text-black" data-target="#datetimepicker2"/>
+                <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                </div>
+                </div>
+        </div>
+        <div class="col-lg-2 align-self-end">
+            <button class="btn btn-primary btn-block text-white" type="submit"><span class="fa fa-search"></span></button>
+        </div>
+    </div>
+</form>
+            </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

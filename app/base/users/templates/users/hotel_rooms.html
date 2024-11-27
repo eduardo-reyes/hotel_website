@@ -1,0 +1,94 @@
+{% extends "users/base.html" %}
+
+{% load static %}
+
+{% load custom_filters %}
+
+{% block content %}      
+
+    <section class="site-hero inner-page overlay" style="background-image: url({% static 'images/roomPage.png' %})" data-stellar-background-ratio="0.5">
+      <div class="container">
+        <div class="row site-hero-inner justify-content-center align-items-center">
+            <div class="col-md-10 text-center" data-aos="fade">
+                <h2 class="text-white d-block  mb-3">Elige entre exclusivas y elegantes</h2>
+                <h1 class="heading">Habitaciones</h1>
+            </div>
+        </div>
+      </div>
+
+   <section class="section">
+      <div class="container">
+        <div class="row">
+            {% for habitacion in habitaciones %}      
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                <form action="/new_bookings" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="habitacion_id" value="{{ habitacion.id_habitacion }}">
+                
+                {% if habitacion.tipo == "Individual" %}
+                <figure class="img-wrap">
+                <img src="{% static 'images/room-1.jpg' %}" alt="individual" class="img-fluid mb-3">
+                </figure>
+                {% with tipo_to_check='Individual' %}
+                    {% if tipo_to_check in tipo_counts %}
+                        <p> No. habitaciones {{ tipo_to_check }} disponibles:  {{ tipo_counts|get_item:tipo_to_check }}</p>
+                    {% else %}
+                        <p> No hay habitaciones {{ tipo_to_check }} disponibles </p>
+                    {% endif %}
+                {% endwith %}
+                {% endif %}
+
+                {% if habitacion.tipo == "Doble" %}
+                <figure class="img-wrap">
+                <img src="{% static 'images/room-2.jpg' %}" alt="doble" class="img-fluid mb-3">
+                </figure>
+                {% with tipo_to_check='Doble' %}
+                    {% if tipo_to_check in tipo_counts %}
+                        <p> No. habitaciones {{ tipo_to_check }} disponibles:  {{ tipo_counts|get_item:tipo_to_check }}</p>
+                    {% else %}
+                        <p> No hay habitaciones {{ tipo_to_check }} disponibles </p>
+                    {% endif %}
+                {% endwith %}
+                {% endif %}
+
+                {% if habitacion.tipo == "Triple" %}
+                <figure class="img-wrap">
+                <img src="{% static 'images/room-3.jpg' %}" alt="triple" class="img-fluid mb-3">
+                </figure>
+                {% with tipo_to_check='Triple' %}
+                    {% if tipo_to_check in tipo_counts %}
+                        <p> No. habitaciones {{ tipo_to_check }} disponibles:  {{ tipo_counts|get_item:tipo_to_check }}</p>
+                    {% else %}
+                        <p> No hay habitaciones {{ tipo_to_check }} disponibles </p>
+                    {% endif %}
+                {% endwith %}
+                {% endif %}
+
+                {% if habitacion.tipo == "Cuadruple" %}
+                <figure class="img-wrap">
+                <img src="{% static 'images/room-4.jpg' %}" alt="cuadruple" class="img-fluid mb-3">
+                </figure>
+                {% with tipo_to_check='Cuadruple' %}
+                    {% if tipo_to_check in tipo_counts %}
+                        <p> No. habitaciones {{ tipo_to_check }} disponibles:  {{ tipo_counts|get_item:tipo_to_check }}</p>
+                    {% else %}
+                        <p> No hay habitaciones {{ tipo_to_check }} disponibles </p>
+                    {% endif %}
+                {% endwith %}
+                {% endif %}
+
+                <div class="p-3 text-center room-info">
+                <h2> {{habitacion.tipo}} </h2>
+                <span class="letter-spacing-1">$ {{habitacion.costo}} / por noche</span>
+                <button class="btn btn-outline-white-primary py-3" type="submit"> <span class="text-uppercase letter-spacing-1"> Reservar </span></button>
+                </div>
+                </form>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+{% endblock %}
